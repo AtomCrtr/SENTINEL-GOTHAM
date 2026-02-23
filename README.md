@@ -1,52 +1,53 @@
-# 🕵️ Projet SENTINEL-GOTHAM
+# 🕵️ Projet GOTHAM (Personal Project)
 ### Souveraineté des Données & Ingénierie de Renseignement (Link Analysis)
 
-## 📖 Philosophie Opérationnelle : L'Ancrage Terrain
-Le projet **Sentinel-Gotham** n'est pas une simple architecture technique ; il est la fusion entre l'expertise en ingénierie de données et la réalité tactique de la gendarmerie de terrain. 
+## 📖 Philosophie Opérationnelle
+Le projet **GOTHAM** est une initiative personnelle visant à fusionner l'expertise de terrain acquise en gendarmerie avec l'ingénierie de données moderne. L'objectif est de transformer des données publiques brutes en intelligence actionnable grâce à la **Link Analysis** (Analyse de liens).
 
-La vision centrale repose sur l'**Ancrage Terrain** : garantir une compréhension physique de la donnée (connaître l'objet réel derrière la ligne de code) pour crédibiliser chaque choix technique face aux opérationnels. En tant que **Sole Contributor**, j'assume l'auto-conception de l'architecture et la recherche autonome des accès complexes.
+La vision centrale repose sur l'**Ancrage Terrain** : ne jamais traiter une donnée sans comprendre la réalité physique ou tactique qu'elle représente.
 
+---
 
+## 🌐 Sources de Données & Ingestion
+Contrairement aux flux industriels, GOTHAM se base exclusivement sur des sources ouvertes (OSINT) et publiques :
+* **Open Data** : Exploitation des jeux de données massifs de **Data.gouv.fr** (Justice, Intérieur, Territoires).
+* **Web Scraping** : Collecte automatisée de données issues de sources publiques pour enrichir les analyses.
+* **OSINT** : Recherche et structuration d'informations provenant de sources ouvertes pour le renseignement criminel ou administratif.
 
 ---
 
 ## 🏗️ Architecture Technique (Type ELT)
-Le pipeline est structuré pour transformer des flux hétérogènes en une ontologie robuste, permettant un pilotage réactif et automatisé.
+Le projet applique une rigueur industrielle de type ELT pour garantir la fiabilité des analyses.
 
-### 1. Couche SOURCE : L'Ingestion Massive
-* **Systèmes Cœurs** : Ingestion des tables SAP (Finance A2, Logistique, Production Header Core) servant de "Source de Vérité" unique.
-* **Shadow IT** : Intégration des besoins métiers spécifiques via Google Sheets pour les données manuelles résiduelles.
-* **Datasets Complexes** : Gestion de tables brutes massives (jusqu'à 174 colonnes) avec traçabilité garantie via suffixes spécifiques (type `_xprog`).
+### 1. Couche SOURCE : Collecte & Souveraineté
+* **Ingestion Massive** : Gestion de sources hétérogènes (API, CSV, JSON issus du scraping).
+* **Traçabilité** : Chaque donnée est importée brute avec un suffixe de traçabilité (`_raw`) pour garantir l'intégrité de la "Preuve".
 
-### 2. Couche CLEAN : Standardisation (Pipeline Builder)
-* **Nettoyage Critique** : Standardisation des formats pour éliminer le "téléphone arabe de la donnée" issu des fichiers intermédiaires fragiles.
-* **Filtres Périmétriques** : Application de filtres stricts sur les codes sites (Plant Code = "NZF") et centres de coûts ($Cost\ Center = "A350"$).
-* **Normalisation** : Conversion systématique des formats de dates et typage rigoureux des colonnes.
+### 2. Couche CLEAN : Standardisation
+* **Data Quality** : Nettoyage drastique pour éliminer les bruits de fond et les erreurs de saisie publique.
+* **Normalisation** : Conversion des entités (Noms, Lieux, Dates) dans un format standardisé pour permettre le croisement.
 
-### 3. Couche ENRICHED : La Valeur Ajoutée (Jointures Complexes)
-* **La Clé de Voûte (AUFNR)** : L'Ordre de Fabrication est le pivot central reliant l'aspect financier, la matière physique et l'unité de production (MSN/Avion).
-* **Jointures Tripartites** : Croisement des flux Logistique (Consommables) + Production (Planning/MSN) + Finance (Prix/Amount).
-* **KPI Automatisé** : Calcul du coût unitaire via la formule :
-[cite_start]$$unit\_price = \frac{amount}{quantity}$$ [cite: 31]
-* **Gestion de la Granularité** : Utilisation de clés composées pour éviter les doublons entre les documents d'en-tête et les lignes d'items SAP.
+### 3. Couche ENRICHED : Link Analysis (La Valeur Ajoutée)
+* **Jointures Complexes** : Création de liens entre des datasets qui "ne se parlent pas" naturellement (ex: Cartographie criminelle vs Données socio-économiques).
+* **Clés de Voûte** : Identification d'identifiants pivots pour lier des dossiers, des individus ou des lieux géographiques.
 
-### 4. Couche ONTOLOGY : Consommation & Visualisation
-* **Mise à disposition** : Création du dataset final structuré pour les outils de visualisation (Slate / Streamlit).
-* **Restitution Visuelle** : Dashboards permettant une mise à jour quotidienne des indicateurs et une réactivité accrue sur les aléas de production.
+### 4. Couche ONTOLOGY : Visualisation & Renseignement
+* **Graphe de Relations** : Structuration finale pour des outils de Link Analysis ou de visualisation dynamique.
+* **Dashboard Tactique** : Mise à disposition d'indicateurs permettant une compréhension immédiate des phénomènes analysés.
 
 ---
 
-## 🛠️ Expertise Systèmes & Quick Wins
-* **Maîtrise SAP** : Compréhension profonde de la relation entre Document Article et Items, et décodage des WBS Elements pour retrouver le numéro de série avion (MSN).
-* **Full-Stack Agile** : Développement d'outils tactiques ("Waterspider") utilisant **Google Apps Script (JS)** pour sécuriser les saisies et **Looker Studio** pour le reporting immédiat.
-* **Diagnostic Qualité** : Utilisation de **Python (Pandas/Jupyter)** pour l'analyse exploratoire et la validation des pivots stratégiques avant industrialisation.
+## 🛠️ Stack Technique GOTHAM
+* **Langages** : Python (Pandas pour le wrangling, BeautifulSoup/Scrapy pour la collecte), SQL.
+* **Environnement** : Développé sous **Google Antigravity** avec l'assistance de **Claude 4.6 Opus**.
+* **Analyse** : Méthodologies d'investigation criminelle appliquées à la Data Science.
 
 ---
 
-## 🎯 Roadmap Stratégique
-1. **Sprint 1-2** : Ingestion automatisée des sources manuelles et premières jointures physiques/financières.
-2. **Sprint 3-4** : Intégration des données de planification pour finaliser le KPI "Coût par MSN".
-3. **Long Terme** : Automatisation complète du pipeline industriel et suppression des silos externes.
+## 🎯 Roadmap du Projet
+1. **Phase 1** : Automatisation du scraping des sources prioritaires sur Data.gouv.
+2. **Phase 2** : Mise en place d'une base de données relationnelle pour la Link Analysis.
+3. **Phase 3** : Déploiement d'une interface de visualisation des réseaux d'influence ou de causalité.
 
 ---
-*Ce projet est développé sous l'IDE **Google Antigravity** avec le support de l'IA **Claude 4.6 Opus**.*
+[cite_start]*Note : Ce projet est mené à titre personnel et illustre une capacité à gérer des architectures de données complexes en toute autonomie[cite: 3].*
